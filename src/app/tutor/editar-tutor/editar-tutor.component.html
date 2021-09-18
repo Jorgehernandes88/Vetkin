@@ -1,0 +1,87 @@
+<h1>Novo Tutor</h1>
+<div class="well">
+    <form #formTutor="ngForm">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="tutor.nome" #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                <div [hidden]="!nome.errors?.required"> Digite o nome da pessoa. </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="email">E-mail:</label>
+                <input type="text" class="form-control" id="email" name="email" [(ngModel)]="tutor.email" #email="ngModel">
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div [hidden]="!email.errors?.required"> Digite o e-mail do tutor</div>
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="profissao">Profissão:</label>
+                <input type="text" class="form-control" id="profissao" name="profissao" [(ngModel)]="tutor.profissao" #profissao="ngModel">
+                <div *ngIf="profissao.errors && (profissao.dirty || profissao.touched)" class="alert alert-danger">
+                    <div [hidden]="!profissao.errors?.required"> Digite a profissão</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" [(ngModel)]="tutor.cpf" #cpf="ngModel">
+                <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+                    <div [hidden]="!cpf.errors?.required"> Digite o cpf</div>
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="telefone">Celular:</label>
+                <input type="text" class="form-control" id="telefone" name="telefone" [(ngModel)]="tutor.telefone" #telefone="ngModel">
+                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+                    <div [hidden]="!telefone.errors?.required"> Digite o Celular</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="cep">CEP:</label>
+                <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="tutor.cep" #cep="ngModel">
+                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                    <div [hidden]="!cep.errors?.required"> Digite o o CEP</div>
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" [(ngModel)]="tutor.endereco" #endereco="ngModel">
+                <div *ngIf="endereco.errors && (endereco.dirty || endereco.touched)" class="alert alert-danger">
+                    <div [hidden]="!endereco.errors?.required"> Digite um endereço</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="complemento">Complemento:</label>
+                <input type="text" class="form-control" id="complemento" name="complemento" [(ngModel)]="tutor.complemento" #complemento="ngModel">
+                <div *ngIf="complemento.errors && (complemento.dirty || complemento.touched)" class="alert alert-danger">
+                    <div [hidden]="!complemento.errors?.required"> Digite o complemento do Endereço</div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" (click)="atualizar()"
+            [disabled]="!formTutor.form.valid">
+                <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/tutores']">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            </a>
+        </div>
+    </form>
+</div>
