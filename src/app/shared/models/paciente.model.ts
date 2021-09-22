@@ -8,5 +8,6 @@ export class Paciente
         public vivo?: boolean,
         public castrado?: string,
         public foto?: string,
+        public IDproprietario?: number,
     ){}
 }

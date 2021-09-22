@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Tutor } from 'src/app/shared/models/tutor.model';
 import { TutorService } from '../services/tutor.service';
 
+import { Paciente } from 'src/app/shared/models/paciente.model';
+import { PacienteService } from 'src/app/paciente/services/paciente.service';
+
 @Component({
   selector: 'app-editar-tutor',
   templateUrl: './editar-tutor.component.html',
@@ -12,12 +15,23 @@ import { TutorService } from '../services/tutor.service';
 export class EditarTutorComponent implements OnInit {
 
   @ViewChild('formTutor') formTutor!: NgForm;
+  @ViewChild('formPaciente') formPaciente!: NgForm;
 
   tutor!: Tutor;
+  paciente!: Paciente;
 
-  constructor(private tutorService: TutorService, private router: Router, private route: ActivatedRoute,) { }
+  public idTutor?: number = +this.route.snapshot.params['id'];
+  displayStyle = "none";
+
+  pacientes: Paciente[] = [];
+
+
+  constructor(private tutorService: TutorService, private router: Router, private route: ActivatedRoute, private pacienteService: PacienteService) { }
 
   ngOnInit(): void {
+    this.paciente = new Paciente();
+    this.pacientes = this.listarTodosDoTutorAtual();
+
     // snapshot.params de ActivatedRoute dá acesso aos parâmetros passados
     // Operador + (antes do this) converte para número
     let id = +this.route.snapshot.params['id'];
@@ -37,6 +51,26 @@ export class EditarTutorComponent implements OnInit {
       // Redireciona para /pessoas
       this.router.navigate(['/tutores/listar']);
     }
+  }
+
+  inserirPaciente(): void {
+    if (this.formPaciente.form.valid) {
+      this.paciente.IDproprietario = this.idTutor;
+      this.pacienteService.inserir(this.paciente);
+      this.closePopup();
+      document.location.reload();
+    }
+  }
+
+  listarTodosDoTutorAtual(): Paciente[] {
+    return this.pacienteService.listarTodosDoProprietario(this.idTutor!);
+  }
+
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
   }
 
 }

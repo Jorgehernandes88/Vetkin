@@ -15,16 +15,18 @@ export class InserirTutorComponent implements OnInit {
 
   tutor!: Tutor;
 
+  
   constructor(private tutorService: TutorService, private router: Router) { }
 
   ngOnInit(): void {
     this.tutor = new Tutor();
   }
-
-  inserir(): void {
+ 
+  inserir($event: any): void {
     if (this.formTutor.form.valid) {
       this.tutorService.inserir(this.tutor);
-      this.router.navigate(["/tutores/listar"]);
+      confirm('Tutor foi incluido com sucesso. "' + this.tutor.nome + '"?')
+      this.router.navigate(["/tutores/editar",this.tutor.id]);
     }
   }
 
