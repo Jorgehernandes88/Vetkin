@@ -32,19 +32,19 @@ export class EditarTutorComponent implements OnInit {
     this.paciente = new Paciente();
     this.pacientes = this.listarTodosDoTutorAtual();
 
-    // snapshot.params de ActivatedRoute dá acesso aos parâmetros passados
-    // Operador + (antes do this) converte para número
+    // snapshot.params de ActivatedRoute dï¿½ acesso aos parï¿½metros passados
+    // Operador + (antes do this) converte para nï¿½mero
     let id = +this.route.snapshot.params['id'];
-    // Com o id, obtém a pessoa
+    // Com o id, obtï¿½m a pessoa
     const res = this.tutorService.buscarPorId(id);
     if (res !== undefined)
       this.tutor = res;
     else
-      throw new Error("Tutor não encontrada: id = " + id);
+      throw new Error("Tutor nÃ£o encontrada: id = " + id);
   }
 
   atualizar(): void {
-    // Verifica se o formulário é válido
+    // Verifica se o formulï¿½rio ï¿½ vï¿½lido
     if (this.formTutor.form.valid) {
       // Efetivamente atualiza a pessoa
       this.tutorService.atualizar(this.tutor);

@@ -30,6 +30,13 @@
 
         <div class="row">
             <div class="col">
+                <label for="especie">Espécie</label>
+                <input type="text" class="form-control" id="especie" name="especie" [(ngModel)]="paciente.especie" #especie="ngModel" required>
+                <div *ngIf="especie.errors && (especie.dirty || especie.touched)" class="alert alert-danger">
+                    <div [hidden]="!especie.errors?.required"> Informe se o paciente é castrado</div>
+                </div>
+            </div>
+            <div class="col">
                 <label for="castrado">Castrado?</label>
                 <input type="text" class="form-control" id="castrado" name="castrado" [(ngModel)]="paciente.castrado" #castrado="ngModel" required>
                 <div *ngIf="castrado.errors && (castrado.dirty || castrado.touched)" class="alert alert-danger">

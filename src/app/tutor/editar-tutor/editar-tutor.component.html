@@ -21,11 +21,11 @@
             </div>
 
             <div class="col">
-                <label for="profissao">Profiss„o:</label>
+                <label for="profissao">Profiss√£o:</label>
                 <input type="text" class="form-control" id="profissao" name="profissao" [(ngModel)]="tutor.profissao"
                     #profissao="ngModel">
                 <div *ngIf="profissao.errors && (profissao.dirty || profissao.touched)" class="alert alert-danger">
-                    <div [hidden]="!profissao.errors?.required"> Digite a profiss„o</div>
+                    <div [hidden]="!profissao.errors?.required"> Digite a profiss√£o</div>
                 </div>
             </div>
         </div>
@@ -59,11 +59,11 @@
             </div>
 
             <div class="col">
-                <label for="endereco">EndereÁo:</label>
+                <label for="endereco">Endere√ßo:</label>
                 <input type="text" class="form-control" id="endereco" name="endereco" [(ngModel)]="tutor.endereco"
                     #endereco="ngModel">
                 <div *ngIf="endereco.errors && (endereco.dirty || endereco.touched)" class="alert alert-danger">
-                    <div [hidden]="!endereco.errors?.required"> Digite um endereÁo</div>
+                    <div [hidden]="!endereco.errors?.required"> Digite um endere√ßo</div>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                     [(ngModel)]="tutor.complemento" #complemento="ngModel">
                 <div *ngIf="complemento.errors && (complemento.dirty || complemento.touched)"
                     class="alert alert-danger">
-                    <div [hidden]="!complemento.errors?.required"> Digite o complemento do EndereÁo</div>
+                    <div [hidden]="!complemento.errors?.required"> Digite o complemento do Endere√ßo</div>
                 </div>
             </div>
         </div>
@@ -117,11 +117,11 @@
 
                         <div class="row">
                             <div class="col">
-                                <label for="raca">RaÁa</label>
+                                <label for="raca">Ra√ßa</label>
                                 <input type="text" class="form-control" id="raca" name="raca"
                                     [(ngModel)]="paciente.raca" #raca="ngModel" required>
                                 <div *ngIf="raca.errors && (raca.dirty || raca.touched)" class="alert alert-danger">
-                                    <div [hidden]="!raca.errors?.required"> Digite qual a raÁa</div>
+                                    <div [hidden]="!raca.errors?.required"> Digite qual a ra√ßa</div>
                                 </div>
                             </div>
 
@@ -137,12 +137,19 @@
 
                         <div class="row">
                             <div class="col">
+                                <label for="especie">Esp√©cie</label>
+                                <input type="text" class="form-control" id="especie" name="especie" [(ngModel)]="paciente.especie" #especie="ngModel" required>
+                                <div *ngIf="especie.errors && (especie.dirty || especie.touched)" class="alert alert-danger">
+                                    <div [hidden]="!especie.errors?.required"> Informe se o paciente √© castrado</div>
+                                </div>
+                            </div>
+                            <div class="col">
                                 <label for="castrado">Castrado?</label>
                                 <input type="text" class="form-control" id="castrado" name="castrado"
                                     [(ngModel)]="paciente.castrado" #castrado="ngModel" required>
                                 <div *ngIf="castrado.errors && (castrado.dirty || castrado.touched)"
                                     class="alert alert-danger">
-                                    <div [hidden]="!castrado.errors?.required"> Informe se o paciente È castrado</div>
+                                    <div [hidden]="!castrado.errors?.required"> Informe se o paciente √© castrado</div>
                                 </div>
                             </div>
                         </div>
@@ -173,11 +180,13 @@
         <tr>
             <th>Nome</th>
             <th>Raca</th>
+            <th>Esp√©cie</th>
             <th>Idade</th>
         </tr>
         <tr *ngFor="let paciente of pacientes">
             <th>{{paciente.nome}}</th>
             <th>{{paciente.raca}}</th>
+            <th>{{paciente.especie}}</th>
             <th>{{paciente.idade}}</th>
             <td class="text-center" style="width: 300px">
                 <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info"

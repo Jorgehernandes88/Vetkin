@@ -12,10 +12,10 @@
 
         <div class="row">
             <div class="col">
-                <label for="raca">Raça</label>
+                <label for="raca">Raï¿½a</label>
                 <input type="text" class="form-control" id="raca" name="raca" [(ngModel)]="paciente.raca" #raca="ngModel" required>
                 <div *ngIf="raca.errors && (raca.dirty || raca.touched)" class="alert alert-danger">
-                    <div [hidden]="!raca.errors?.required"> Digite qual a raça</div>
+                    <div [hidden]="!raca.errors?.required"> Digite qual a raï¿½a</div>
                 </div>
             </div>
 
@@ -30,10 +30,17 @@
 
         <div class="row">
             <div class="col">
+                <label for="especie">EspÃ©cie</label>
+                <input type="text" class="form-control" id="especie" name="especie" [(ngModel)]="paciente.especie" #especie="ngModel" required>
+                <div *ngIf="especie.errors && (especie.dirty || especie.touched)" class="alert alert-danger">
+                    <div [hidden]="!especie.errors?.required"> Informe se o paciente Ã© castrado</div>
+                </div>
+            </div>
+            <div class="col">
                 <label for="castrado">Castrado?</label>
                 <input type="text" class="form-control" id="castrado" name="castrado" [(ngModel)]="paciente.castrado" #castrado="ngModel" required>
                 <div *ngIf="castrado.errors && (castrado.dirty || castrado.touched)" class="alert alert-danger">
-                    <div [hidden]="!castrado.errors?.required"> Informe se o paciente é castrado</div>
+                    <div [hidden]="!castrado.errors?.required"> Informe se o paciente Ã© castrado</div>
                 </div>
             </div>
         </div>
