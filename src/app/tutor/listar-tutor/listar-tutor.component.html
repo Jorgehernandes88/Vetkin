@@ -14,13 +14,13 @@
             </th>
         </tr>
         <tr *ngFor="let tutor of tutores">
-            <th>{{tutor.nome}}</th>
+            <th>{{tutor.nomeCompleto}}</th>
             <th>{{tutor.email}}</th>
             <th>{{tutor.profissao}}</th>
             <th>{{tutor.cpf}}</th>
             <th>{{tutor.telefone}}</th>
             <td class="text-center" style="width: 300px">
-                <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/tutores/editar', tutor.id]">
+                <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/tutores/editar', tutor.recID_TutorCliente]">
                     <i class="fa fa-edit" aria-hidden="true"></i> Editar
                 </a>
                 <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger" (click)="remover($event, tutor)">

@@ -19,7 +19,8 @@ export class EditarTutorComponent implements OnInit {
 
   tutor!: Tutor;
   paciente!: Paciente;
-
+  res!: any;
+  
   public idTutor?: number = +this.route.snapshot.params['id'];
   displayStyle = "none";
 
@@ -31,25 +32,34 @@ export class EditarTutorComponent implements OnInit {
   ngOnInit(): void {
     this.paciente = new Paciente();
     this.pacientes = this.listarTodosDoTutorAtual();
+    this.preencherCamposTutor(+this.route.snapshot.params['id']);
+  }
 
-    // snapshot.params de ActivatedRoute d� acesso aos par�metros passados
-    // Operador + (antes do this) converte para n�mero
-    let id = +this.route.snapshot.params['id'];
-    // Com o id, obt�m a pessoa
-    const res = this.tutorService.buscarPorId(id);
-    if (res !== undefined)
-      this.tutor = res;
-    else
-      throw new Error("Tutor não encontrada: id = " + id);
+  preencherCamposTutor(id: number){
+    this.tutorService.buscaPorIDCliente(id.toString()).subscribe(
+      {
+        next: (res) => {
+          if(res){
+            this.res = res
+          }
+        },
+        complete: () => (this.tutor = this.res)
+      }
+    )
   }
 
   atualizar(): void {
-    // Verifica se o formul�rio � v�lido
     if (this.formTutor.form.valid) {
-      // Efetivamente atualiza a pessoa
-      this.tutorService.atualizar(this.tutor);
-      // Redireciona para /pessoas
-      this.router.navigate(['/tutores/listar']);
+      this.tutorService.atualizarClientes(this.tutor).subscribe(
+        {
+        next: (res) => {
+            if(res){
+              this.res = res
+            }
+         },
+        error: (erro: Error) => this.mostrarMensagem(erro.message),
+        complete: () => (this.mostrarMensagem(this.res.Status),this.router.navigate(['/tutores/listar']))
+      });
     }
   }
 
@@ -71,6 +81,10 @@ export class EditarTutorComponent implements OnInit {
   }
   closePopup() {
     this.displayStyle = "none";
+  }
+
+  mostrarMensagem(mensagem : string){
+    alert(mensagem);
   }
 
 }

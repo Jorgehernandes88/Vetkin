@@ -1,4 +1,8 @@
+import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 import { Tutor } from 'src/app/shared/models/tutor.model';
 
@@ -8,52 +12,41 @@ const LS_CHAVE: string = "tutores";
   providedIn: 'root'
 })
 export class TutorService {
+  [x: string]: any;
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  listarTodos(): Tutor []{
-    const tutores = localStorage[LS_CHAVE];
-    return tutores ? JSON.parse(tutores): [];
-  }
+  BASE_URL = 'http://localhost:8080/api/v1/TutorClientes/'
 
-  inserir(tutor: Tutor): void {
-    //Obtem a lista completa de pessoas
-    const tutores = this.listarTodos();
 
-    tutor.id = new Date().getTime();
-  
-    tutores.push(tutor);
+httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
+}
 
-    localStorage[LS_CHAVE] = JSON.stringify(tutores);
-  }
-  
-  buscarPorId(id: number): Tutor | undefined{
-    const tutores: Tutor[] = this.listarTodos();
-  
-    return tutores.find(tutor => tutor!.id === id);
-  }
-  
-  atualizar(tutor: Tutor): void{
-    const tutores: Tutor[] = this.listarTodos();
+listarClientes(): Observable<[]> {
+  return this.httpClient.get<[]>(this.BASE_URL, this.httpOptions)
+}
 
-    tutores.forEach((obj,index,objs)=>{
-      if(tutor.id === obj.id){
-        objs[index] = tutor
-      }
-    });
-  
-    localStorage[LS_CHAVE] = JSON.stringify(tutores);
-  
-  }
-  
-  remover(id: number):void{
+  inserirClientes(tutor: Tutor): Observable<Tutor>{
+    return this.httpClient.post<Tutor>(this.BASE_URL, JSON.stringify(tutor), this.httpOptions)
+}
 
-    let tutores: Tutor[] = this.listarTodos();
-  
-    tutores = tutores.filter(tutor => tutor.id !== id);
-  
-    //atualiza a lista de pessoas
-    localStorage[LS_CHAVE] = JSON.stringify(tutores);
-  }
+buscaPorIDCliente(id: string): Observable<[]> {
+    return this.httpClient.get<[]>(`${this.BASE_URL}${id}`, this.httpOptions)
+}
+
+buscaPorCpf(cpf: string): Observable<[]> {
+  return this.httpClient.get<[]>(`${this.BASE_URL}cpf/${cpf}`, this.httpOptions);
+}
+
+atualizarClientes(tutor: Tutor): Observable<Tutor> {
+  return this.httpClient.put<Tutor>(this.BASE_URL + tutor.recID_TutorCliente, JSON.stringify(tutor), this.httpOptions);
+}
+
+removerClientes(id: number): Observable<Tutor> {
+  return this.httpClient.delete<Tutor>(this.BASE_URL + id);
+}
 
 }

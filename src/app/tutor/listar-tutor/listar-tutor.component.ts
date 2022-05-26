@@ -18,33 +18,57 @@ export class ListarTutorComponent implements OnInit {
 
   constructor(private tutorService: TutorService,private pacienteService: PacienteService) { }
 
-    ngOnInit(): void {
-    this.tutores = this.listarTodos();
+
+  ngOnInit(): void {
+    this.listarTodos();
   }
 
-  listarTodos(): Tutor[]{
-    return this.tutorService.listarTodos();
-
-
+  listarTodos() {
+    return this.tutorService.listarClientes().subscribe({
+      next: (tutores: Tutor[]) => {
+        if (tutores == null) {
+          this.tutores = [];
+        }
+        else {
+          this.tutores = tutores;
+        }
+      }
+    });
   }
 
+  remover($event: any, tutor: Tutor) {
+    $event.preventDefault();
 
+    if (this.confirmaRemoverCliente(tutor)) {
+      this.tutorService.removerClientes(tutor.recID_TutorCliente!).subscribe({
+        complete: () => document.location.reload()
+      });
+    }
+    document.location.reload()
+  }
+
+  confirmaRemoverCliente(tutor: Tutor){
+    let confirmaRemocaoCliente = confirm("Deseja remover o cliente " + tutor.nomeCompleto + "?");
+    return confirmaRemocaoCliente;
+  }
+
+/*
   remover($event: any, tutor: Tutor): void {
     $event.preventDefault();
     
-    const pacientes =  this.pacienteService.listarTodosDoProprietario(tutor.id!);
+    const pacientes =  this.pacienteService.listarTodosDoProprietario(tutor.recID_TutorCliente!);
 
     if (pacientes.length > 0)
     {
       confirm('Não é possivel remover esse usário. Existe "' + pacientes.length + '" registros associados.')
     }else{
-      if (confirm('Deseja realmente remover esse "' + tutor.nome + '"?')) {
-        this.tutorService.remover(tutor.id!);
-        this.tutores = this.listarTodos();
+      if (confirm('Deseja realmente remover esse "' + tutor.nomeCompleto + '"?')) {
+        this.tutorService.remover(tutor.recID_TutorCliente!);
+        //this.tutores = this.listarTodos();
       }
     }
     }
-
+*/
 
 
 

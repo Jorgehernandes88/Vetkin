@@ -9,6 +9,7 @@ import { ListarTutorComponent } from './listar-tutor/listar-tutor.component';
 import { InserirTutorComponent } from './inserir-tutor/inserir-tutor.component';
 import { EditarTutorComponent } from './editar-tutor/editar-tutor.component';
 
+
 @NgModule({
   declarations: [
     ListarTutorComponent,

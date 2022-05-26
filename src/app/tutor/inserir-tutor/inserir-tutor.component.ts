@@ -14,7 +14,7 @@ export class InserirTutorComponent implements OnInit {
   @ViewChild('formTutor') formTutor!: NgForm;
 
   tutor!: Tutor;
-
+  res!: any;
   
   constructor(private tutorService: TutorService, private router: Router) { }
 
@@ -22,12 +22,25 @@ export class InserirTutorComponent implements OnInit {
     this.tutor = new Tutor();
   }
  
-  inserir($event: any): void {
+  inserir($event: any){
     if (this.formTutor.form.valid) {
-      this.tutorService.inserir(this.tutor);
-      confirm('Tutor foi incluido com sucesso. "' + this.tutor.nome + '"?')
-      this.router.navigate(["/tutores/editar",this.tutor.id]);
-    }
+      this.tutor.avatar="";
+      this.tutor.receberAvisos="";
+    
+      this.tutorService.inserirClientes(this.tutor).subscribe(
+        {
+        next: (res) => {
+            if(res){
+              this.res = res
+            }
+         },
+        error: (erro: Error) => this.mostrarMensagem(erro.message),
+        complete: () => (this.mostrarMensagem(this.res.Status),this.router.navigate(["/tutores/editar/",this.res.idTutorCliente]))
+      });
+  }
   }
 
+  mostrarMensagem(mensagem : string){
+    alert(mensagem);
+  }
 }

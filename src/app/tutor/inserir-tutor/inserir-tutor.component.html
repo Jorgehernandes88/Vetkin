@@ -5,7 +5,7 @@
     <form #formTutor="ngForm">
         <div class="form-group">
             <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="tutor.nome" #nome="ngModel"
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="tutor.nomeCompleto" #nome="ngModel"
                 required>
             <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
                 <div [hidden]="!nome.errors?.required"> Digite o nome da pessoa. </div>
@@ -52,41 +52,6 @@
         </div>
 
         <div class="row">
-            <div class="col">
-                <label for="cep">CEP:</label>
-                <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="tutor.cep" #cep="ngModel">
-                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                    <div [hidden]="!cep.errors?.required"> Digite o o CEP</div>
-                </div>
-            </div>
-
-            <div class="col">
-                <label for="endereco">Endereço:</label>
-                <input type="text" class="form-control" id="endereco" name="endereco" [(ngModel)]="tutor.endereco"
-                    #endereco="ngModel">
-                <div *ngIf="endereco.errors && (endereco.dirty || endereco.touched)" class="alert alert-danger">
-                    <div [hidden]="!endereco.errors?.required"> Digite um endereço</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label for="complemento">Complemento:</label>
-                <input type="text" class="form-control" id="complemento" name="complemento"
-                    [(ngModel)]="tutor.complemento" #complemento="ngModel">
-                <div *ngIf="complemento.errors && (complemento.dirty || complemento.touched)"
-                    class="alert alert-danger">
-                    <div [hidden]="!complemento.errors?.required"> Digite o complemento do Endereço</div>
-                </div>
-            </div>
-        
-            <div class="switch">
-                <label for="status">Status:</label>
-                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round"  type="checkbox">
-                <label for="cmn-toggle-1"></label>
-            </div>
-
             <div class="switch">
                 <label for="avisos">Receber avisos?</label>
                 <input id="avisos" class="cmn-toggle cmn-toggle-round"  type="checkbox">
