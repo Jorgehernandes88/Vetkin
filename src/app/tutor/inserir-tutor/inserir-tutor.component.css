@@ -68,3 +68,11 @@ input.cmn-toggle-round + label {
     -ms-user-select: none;
     user-select: none;
   }
+
+  .avatar {
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

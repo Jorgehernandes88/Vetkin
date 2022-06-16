@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 import { Tutor } from 'src/app/shared/models/tutor.model';
+import { Endereco } from 'src/app/shared/models/endereco.model';
 
 const LS_CHAVE: string = "tutores";
 
@@ -17,6 +18,7 @@ export class TutorService {
   constructor(private httpClient: HttpClient) { }
 
   BASE_URL = 'http://localhost:8080/api/v1/TutorClientes/'
+  BASE_URL_CEP = "https://viacep.com.br/ws/"
 
 
 httpOptions = {
@@ -47,6 +49,10 @@ atualizarClientes(tutor: Tutor): Observable<Tutor> {
 
 removerClientes(id: number): Observable<Tutor> {
   return this.httpClient.delete<Tutor>(this.BASE_URL + id);
+}
+
+buscarCEP(cep: string): Observable<[]> {
+  return this.httpClient.get<[]>(`${this.BASE_URL_CEP}${cep}/json`, this.httpOptions);
 }
 
 }
