@@ -6,6 +6,7 @@ import { Endereco } from 'src/app/shared/models/endereco.model';
 import { TutorService } from '../services/tutor.service';
 import { Paciente } from 'src/app/shared/models/paciente.model';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JsonpClientBackend } from '@angular/common/http';
 
 
 
@@ -36,7 +37,7 @@ export class InserirTutorComponent implements OnInit {
  
   inserir($event: any){
     if (this.formTutor.form.valid) {
-      this.tutor.avatar="";
+      this.tutorService.tratarDadosParaInserir(this.tutor,this.endereco,this.pacientes);
       this.tutorService.inserirClientes(this.tutor).subscribe(
         {
         next: (res) => {
@@ -48,15 +49,6 @@ export class InserirTutorComponent implements OnInit {
         complete: () => (this.mostrarMensagem(this.res.Status),this.router.navigate(["/tutores/editar/",this.res.idTutorCliente]))
       });
   }
-  }
-
-  inserirPaciente($event: any){
-    this.pacientes.push(this.paciente);
-    this.fecharModal();
-  }
-
-  mostrarMensagem(mensagem : string){
-    alert(mensagem);
   }
 
   bucarCEP($event: any){
@@ -76,13 +68,27 @@ export class InserirTutorComponent implements OnInit {
 
   }
 
+  inserirPaciente($event: any){
+    const Localpacientes = this.listarTodosPacientes();
+    Localpacientes.push(this.paciente);
+    this.pacientes = Localpacientes;
+    this.paciente = new Paciente();
+    this.fecharModal();
+  }
+
+  mostrarMensagem(mensagem : string){
+    alert(mensagem);
+  }
+
   abrirModal(template: TemplateRef<any>) {
     const modalRef = this.modalService.open(template);
-    }
+  }
 
-    fecharModal(){
-      const modalRef = this.modalService.dismissAll();    
-    }
+  fecharModal(){
+    const modalRef = this.modalService.dismissAll();    
+  }
 
-
+  listarTodosPacientes(): Paciente[] {
+    return this.pacientes;
+  }
 }

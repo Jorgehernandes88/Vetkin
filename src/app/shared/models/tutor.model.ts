@@ -1,3 +1,6 @@
+import { Endereco } from "./endereco.model";
+import { Paciente } from "./paciente.model";
+
 export class Tutor 
 {
     constructor(
@@ -8,6 +11,8 @@ export class Tutor
         public cpf?: string,
         public telefone?: string,
         public receberAvisos?: string,
-        public avatar?: string
+        public avatar?: string,
+        public endereco?: Endereco,
+        public paciente?: Paciente[],
          ) { }
 }

@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Paciente } from 'src/app/shared/models/paciente.model';
 
@@ -9,7 +11,41 @@ const LS_CHAVE: string = "pacientes";
 })
 export class PacienteService {
 
-  constructor() { }
+  [x: string]: any;
+
+  constructor(private httpClient: HttpClient) { }
+
+  BASE_URL = 'http://localhost:8080/api/v1/Paciente/'
+
+  //API Pacientes
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  }
+
+  listarPacientes(): Observable<[]> {
+    return this.httpClient.get<[]>(this.BASE_URL, this.httpOptions)
+  }
+
+  inserirPaciente(paciente: Paciente): Observable<Paciente> {
+    return this.httpClient.post<Paciente>(this.BASE_URL, JSON.stringify(paciente), this.httpOptions)
+  }
+
+  buscaPorIDPaciente(id: string): Observable<[]> {
+    return this.httpClient.get<[]>(`${this.BASE_URL}${id}`, this.httpOptions)
+  }
+
+  atualizarPaciente(paciente: Paciente): Observable<Paciente> {
+    return this.httpClient.put<Paciente>(this.BASE_URL + paciente.recID_Paciente, JSON.stringify(paciente), this.httpOptions);
+  }
+
+  removerPaciente(id: number): Observable<Paciente> {
+    return this.httpClient.delete<Paciente>(this.BASE_URL + id);
+  }
+
+  //---------------------------------------------------------------------------------------------------------------------
 
   listarTodos(): Paciente[] {
     const pacientes = localStorage[LS_CHAVE];
@@ -19,7 +55,7 @@ export class PacienteService {
   listarTodosDoProprietario(idPropri: number): Paciente[] {
     const pacientes = localStorage[LS_CHAVE];
 
-      
+
     return pacientes ? JSON.parse(pacientes).filter((paciente: { IDproprietario: number; }) => paciente.IDproprietario === idPropri) : [];
   }
 
@@ -27,7 +63,7 @@ export class PacienteService {
     //Obtem a lista completa de pessoas
     const pacientes = this.listarTodos();
 
-    paciente.id = new Date().getTime();
+    paciente.recID_Paciente = new Date().getTime();
 
     pacientes.push(paciente);
 
@@ -37,14 +73,14 @@ export class PacienteService {
   buscarPorId(id: number): Paciente | undefined {
     const pacientes: Paciente[] = this.listarTodos();
 
-    return pacientes.find(paciente => paciente!.id === id);
+    return pacientes.find(paciente => paciente!.recID_Paciente === id);
   }
 
   atualizar(paciente: Paciente): void {
     const pacientes: Paciente[] = this.listarTodos();
 
     pacientes.forEach((obj, index, objs) => {
-      if (paciente.id === obj.id) {
+      if (paciente.recID_Paciente === obj.recID_Paciente) {
         objs[index] = paciente
       }
     });
@@ -52,16 +88,4 @@ export class PacienteService {
     localStorage[LS_CHAVE] = JSON.stringify(pacientes);
 
   }
-
-  remover(id: number): void {
-
-    let pacientes: Paciente[] = this.listarTodos();
-
-    pacientes = pacientes.filter(paciente => paciente.id !== id);
-
-    //atualiza a lista de pessoas
-    localStorage[LS_CHAVE] = JSON.stringify(pacientes);
-  }
-
-
 }

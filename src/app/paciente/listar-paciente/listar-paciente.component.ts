@@ -11,28 +11,50 @@ import { Paciente } from '../../shared/models/paciente.model';
 export class ListarPacienteComponent implements OnInit {
 
   pacientes: Paciente[] = [];
+  resposta!: any;
 
   constructor(private pacienteService: PacienteService) { }
 
   ngOnInit(): void {
-    this.pacientes = this.listarTodos();
+    this.listarTodos();
   }
 
-  listarTodos(): Paciente[] {
-    return this.pacienteService.listarTodos();
-
-    /*return [
-      new Paciente(1,"Molly","ASPONE","14",true,"n/a")
-    ];*/
-
+  listarTodos() {
+    return this.pacienteService.listarPacientes().subscribe({
+      next: (pacientes: Paciente[]) => {
+        if (pacientes == null) {
+          this.pacientes = [];
+        }
+        else {
+          this.pacientes = pacientes;
+        }
+      }
+    });
   }
 
-  remover($event: any, paciente: Paciente): void {
+  remover($event: any, paciente: Paciente) {
     $event.preventDefault();
-    if (confirm('Deseja realmente remover esse "' + paciente.nome + '"?')) {
-      this.pacienteService.remover(paciente.id!);
-      this.pacientes = this.listarTodos();
+
+    if (this.confirmaRemoverPaciente(paciente)) {
+      this.pacienteService.removerPaciente(paciente.recID_Paciente!).subscribe({
+      next: (resposta) => {
+        if(resposta){
+          this.resposta = resposta
+        }
+      },
+      error: (erro: Error) => this.mostrarMensagem(erro.message),
+      complete: () => (this.mostrarMensagem(this.resposta['Status']),document.location.reload())
+      });
     }
+  }
+
+  confirmaRemoverPaciente(paciente: Paciente){
+    let confirmaRemocaoCliente = confirm("Deseja remover o cliente " + paciente.nome + "?");
+    return confirmaRemocaoCliente;
+  }
+
+  mostrarMensagem(mensagem : string){
+    alert(mensagem);
   }
 
 }

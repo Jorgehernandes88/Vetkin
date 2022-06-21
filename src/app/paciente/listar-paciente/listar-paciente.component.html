@@ -5,7 +5,7 @@
             <th>Nome</th>
             <th>Raca</th>
             <th>Espécie</th>
-            <th>Idade</th>
+            <th>sexo</th>
             <th class="text-center">
                 <a href="#" title="Novo" alt="Novo" class="btn btn-xs btn-success" [routerLink]="['/pacientes/novo']">
                     <i class="fa fa-plus" aria-hidden="true"></i> Novo
@@ -16,10 +16,10 @@
             <th>{{paciente.nome}}</th>
             <th>{{paciente.raca}}</th>
             <th>{{paciente.especie}}</th>
-            <th>{{paciente.idade}}</th>
+            <th>{{paciente.sexo}}</th>
             <td class="text-center" style="width: 300px">
                 <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info"
-                    [routerLink]="['/pacientes/editar', paciente.id]">
+                    [routerLink]="['/pacientes/editar', paciente.recID_Paciente]">
                     <i class="fa fa-edit" aria-hidden="true"></i> Editar
                 </a>
                 <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"

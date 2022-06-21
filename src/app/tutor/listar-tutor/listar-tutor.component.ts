@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { TutorService } from '../services/tutor.service';
 import { Tutor } from '../../shared/models/tutor.model';
 
-import { Paciente } from 'src/app/shared/models/paciente.model';
-import { PacienteService } from 'src/app/paciente/services/paciente.service';
-
 @Component({
   selector: 'app-listar-tutor',
   templateUrl: './listar-tutor.component.html',
@@ -14,9 +11,9 @@ import { PacienteService } from 'src/app/paciente/services/paciente.service';
 export class ListarTutorComponent implements OnInit {
 
   tutores: Tutor[] = [];
-  pacientes: Paciente[] = [];
+  resposta!: any;
 
-  constructor(private tutorService: TutorService,private pacienteService: PacienteService) { }
+  constructor(private tutorService: TutorService) { }
 
 
   ngOnInit(): void {
@@ -41,7 +38,13 @@ export class ListarTutorComponent implements OnInit {
 
     if (this.confirmaRemoverCliente(tutor)) {
       this.tutorService.removerClientes(tutor.recID_TutorCliente!).subscribe({
-        complete: () => document.location.reload()
+        next: (resposta) => {
+          if(resposta){
+            this.resposta = resposta
+          }
+        },
+        error: (erro: Error) => this.mostrarMensagem(erro.message),
+        complete: () => (this.mostrarMensagem(this.resposta['Status']),document.location.reload())
       });
     }
     document.location.reload()
@@ -52,24 +55,7 @@ export class ListarTutorComponent implements OnInit {
     return confirmaRemocaoCliente;
   }
 
-/*
-  remover($event: any, tutor: Tutor): void {
-    $event.preventDefault();
-    
-    const pacientes =  this.pacienteService.listarTodosDoProprietario(tutor.recID_TutorCliente!);
-
-    if (pacientes.length > 0)
-    {
-      confirm('Não é possivel remover esse usário. Existe "' + pacientes.length + '" registros associados.')
-    }else{
-      if (confirm('Deseja realmente remover esse "' + tutor.nomeCompleto + '"?')) {
-        this.tutorService.remover(tutor.recID_TutorCliente!);
-        //this.tutores = this.listarTodos();
-      }
-    }
-    }
-*/
-
-
-
+  mostrarMensagem(mensagem : string){
+    alert(mensagem);
+  }
 }

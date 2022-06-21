@@ -1,7 +1,9 @@
+import { Tutor } from "./tutor.model";
+
 export class Paciente 
 {
     constructor(
-        public id?:   number,
+        public recID_Paciente?:   number,
         public nome?: string,
         public especie?: string,
         public dataNacimento?: string,
@@ -12,7 +14,7 @@ export class Paciente
         public observacoes?: string,
         public sexo?: string,
         public agressivo?: string,
-        public Status?: string,
+        public status?: string,
         public aptoAReproducao?: string,
         public pedigree?: string,
         public microchip?: string,
@@ -22,8 +24,6 @@ export class Paciente
         public idade?:string,
         public vivo?: boolean,
         public castrado?: string,
-
-
-
+        public tutor?: Tutor,
     ){}
 }

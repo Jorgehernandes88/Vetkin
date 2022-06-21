@@ -3,11 +3,9 @@ import { HttpClientModule } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-
 import { Tutor } from 'src/app/shared/models/tutor.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
-
-const LS_CHAVE: string = "tutores";
+import { Paciente } from 'src/app/shared/models/paciente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,6 @@ export class TutorService {
 
   BASE_URL = 'http://localhost:8080/api/v1/TutorClientes/'
   BASE_URL_CEP = "https://viacep.com.br/ws/"
-
 
 httpOptions = {
   headers: new HttpHeaders({
@@ -53,6 +50,12 @@ removerClientes(id: number): Observable<Tutor> {
 
 buscarCEP(cep: string): Observable<[]> {
   return this.httpClient.get<[]>(`${this.BASE_URL_CEP}${cep}/json`, this.httpOptions);
+}
+
+tratarDadosParaInserir(tutor: Tutor, endereco: Endereco, paciente: Paciente[])
+{
+ tutor.endereco = endereco;
+ tutor.paciente = paciente;
 }
 
 }
