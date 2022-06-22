@@ -9,6 +9,8 @@ import { ListarTutorComponent } from './tutor/listar-tutor/listar-tutor.componen
 import { InserirTutorComponent } from './tutor/inserir-tutor/inserir-tutor.component';
 import { EditarTutorComponent } from './tutor/editar-tutor/editar-tutor.component';
 
+import { ListarExameComponent } from './exame/listar-exame/listar-exame.component';
+
 const routes: Routes = [
     //Tutores
     {
@@ -43,7 +45,16 @@ const routes: Routes = [
     {
         path: 'pacientes/editar/:id',
         component: EditarPacienteComponent
-    }
+    },
+    //Exames
+    {
+        path: 'exames',
+        redirectTo: 'exames/listar'
+    },
+    {
+        path: 'exames/listar',
+        component: ListarExameComponent
+    },
 ];
 
 @NgModule({

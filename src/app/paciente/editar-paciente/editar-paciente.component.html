@@ -2,55 +2,125 @@
 <div class="well">
     <form #formPaciente="ngForm">
 
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="paciente.nome" #nome="ngModel" required>
-            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
-                <div [hidden]="!nome.errors?.required"> Digite o nome da pessoa. </div>
+        <div class="row">
+            <div class="switch">
+                <label for="statusPaciente">Paciente vivo?</label>
+                <input class="cmn-toggle cmn-toggle-round" type="checkbox" id="statusPaciente" name="statusPaciente"
+                    [(ngModel)]="paciente.status">
+                <label for="statusPaciente"></label>
             </div>
         </div>
-
+        <br>
+        <!---->
         <div class="row">
             <div class="col">
-                <label for="raca">Ra�a</label>
-                <input type="text" class="form-control" id="raca" name="raca" [(ngModel)]="paciente.raca" #raca="ngModel" required>
-                <div *ngIf="raca.errors && (raca.dirty || raca.touched)" class="alert alert-danger">
-                    <div [hidden]="!raca.errors?.required"> Digite qual a ra�a</div>
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="paciente.nome"
+                    #nome="ngModel" required>
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                    <div [hidden]="!nome.errors?.required"> Digite o nome da pessoa. </div>
                 </div>
             </div>
-
+            <br>
             <div class="col">
-                <label for="idade">Idade:</label>
-                <input type="text" class="form-control" id="idade" name="idade" [(ngModel)]="paciente.idade" #idade="ngModel" required>
-                <div *ngIf="idade.errors && (idade.dirty || idade.touched)" class="alert alert-danger">
-                    <div [hidden]="!idade.errors?.required"> Digite uma idade</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label for="especie">Espécie</label>
-                <input type="text" class="form-control" id="especie" name="especie" [(ngModel)]="paciente.especie" #especie="ngModel" required>
+                <label for="especie">Especie:</label>
+                <input type="text" class="form-control" id="especie" name="especie" [(ngModel)]="paciente.especie"
+                    #especie="ngModel" required>
                 <div *ngIf="especie.errors && (especie.dirty || especie.touched)" class="alert alert-danger">
-                    <div [hidden]="!especie.errors?.required"> Informe se o paciente é castrado</div>
-                </div>
-            </div>
-            <div class="col">
-                <label for="castrado">Castrado?</label>
-                <input type="text" class="form-control" id="castrado" name="castrado" [(ngModel)]="paciente.castrado" #castrado="ngModel" required>
-                <div *ngIf="castrado.errors && (castrado.dirty || castrado.touched)" class="alert alert-danger">
-                    <div [hidden]="!castrado.errors?.required"> Informe se o paciente é castrado</div>
+                    <div [hidden]="!nome.errors?.required"> Digite qual é a Especie </div>
                 </div>
             </div>
         </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="raca">Raça:</label>
+                <input type="text" class="form-control" id="raca" name="raca" [(ngModel)]="paciente.raca"
+                    #raca="ngModel" required>
+                <div *ngIf="raca.errors && (raca.dirty || raca.touched)" class="alert alert-danger">
+                    <div [hidden]="!raca.errors?.required"> Digite qual a raça</div>
+                </div>
+            </div>
 
+            <div class="col">
+                <label for="dataNacimento">Data Nacimento:</label>
+                <input type="text" class="form-control" id="dataNacimento" name="dataNacimento"
+                    [(ngModel)]="paciente.dataNacimento" #dataNacimento="ngModel" required>
+                <div *ngIf="dataNacimento.errors && (dataNacimento.dirty || dataNacimento.touched)"
+                    class="alert alert-danger">
+                    <div [hidden]="!dataNacimento.errors?.required"> Digite uma Data Nacimento</div>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="racaSecundaria">Raça Secundaria:</label>
+                <input type="text" class="form-control" id="racaSecundaria" name="racaSecundaria"
+                    [(ngModel)]="paciente.racaSecundaria">
+            </div>
+
+            <div class="col">
+                <label for="porte">Porte:</label>
+                <input type="text" class="form-control" id="porte" name="porte" [(ngModel)]="paciente.porte"
+                    #porte="ngModel" required>
+                <div *ngIf="porte.errors && (porte.dirty || porte.touched)" class="alert alert-danger">
+                    <div [hidden]="!porte.errors?.required"> Informe o Porte do paciente</div>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="alergias">Alergias:</label>
+                <input type="text" class="form-control" id="alergias" name="alergias" [(ngModel)]="paciente.alergias">
+            </div>
+
+            <div class="col">
+                <label for="agressivo">Agressivo?</label>
+                <input type="text" class="form-control" id="agressivo" name="agressivo"
+                    [(ngModel)]="paciente.agressivo">
+            </div>
+        </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="sexo">Sexo:</label>
+                <input type="text" class="form-control" id="sexo" name="sexo" [(ngModel)]="paciente.sexo">
+            </div>
+
+            <div class="col">
+                <label for="aptoAReproducao">Apto a Reprodução?</label>
+                <input type="text" class="form-control" id="aptoAReproducao" name="aptoAReproducao"
+                    [(ngModel)]="paciente.aptoAReproducao">
+            </div>
+        </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="pedigree">Pedigree:</label>
+                <input type="text" class="form-control" id="pedigree" name="pedigree" [(ngModel)]="paciente.pedigree">
+            </div>
+
+            <div class="col">
+                <label for="microchip">Microchip:</label>
+                <input type="text" class="form-control" id="microchip" name="microchip"
+                    [(ngModel)]="paciente.microchip">
+            </div>
+        </div>
+        <!---->
+        <div class="row">
+            <div class="col">
+                <label for="observacoes">Observações:</label>
+                <input type="text" class="form-control" id="observacoes" name="observacoes" [(ngModel)]="paciente.observacoes">
+            </div>
+        </div>
         <br>
         <div class="form-group">
-            <button type="button" class="btn btn-primary" (click)="atualizar()" [disabled]="!formPaciente.form.valid">
+            <button type="button" class="btn btn-primary" style="margin: 5px"(click)="atualizar()" [disabled]="!formPaciente.form.valid">
                 <i class="fa fa-save" aria-hidden="true"></i> Atualizar
             </button>
-            <a class="btn btn-secondary" [routerLink]="['/pacientes']">
+            <a class="btn btn-secondary" style="margin: 5px" [routerLink]="['/pacientes']">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
             </a>
         </div>

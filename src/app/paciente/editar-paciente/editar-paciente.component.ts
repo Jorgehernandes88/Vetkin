@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Paciente } from 'src/app/shared/models/paciente.model';
+import { Tutor } from 'src/app/shared/models/tutor.model';
 import { PacienteService } from '../services/paciente.service';
 
 @Component({
@@ -14,29 +15,48 @@ export class EditarPacienteComponent implements OnInit {
   @ViewChild('formPaciente') formPaciente!: NgForm;
 
   paciente!: Paciente;
+  tutor!: Tutor;
+  resultado!: any;
 
   constructor(private pacienteService: PacienteService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // snapshot.params de ActivatedRoute dá acesso aos parâmetros passados
-    // Operador + (antes do this) converte para número
-    let id = +this.route.snapshot.params['id'];
-    // Com o id, obtém a pessoa
-    const res = this.pacienteService.buscarPorId(id);
-    if (res !== undefined)
-      this.paciente = res;
-    else
-      throw new Error("Paciente não encontrado: id = " + id);
+    this.tutor = new Tutor();
+    this.preencherCamposPaciente(+this.route.snapshot.params['id']);
+  }
+
+  preencherCamposPaciente(id: number) {
+    this.pacienteService.buscaPorIDPaciente(id.toString()).subscribe(
+      {
+        next: (resultado) => {
+          if (resultado) {
+            this.resultado = resultado
+          }
+        },
+        error: (erro: Error) => this.mostrarMensagem(erro.message),
+        complete: () => (this.paciente = this.resultado,
+          this.tutor = this.resultado['tutor'])
+      }
+    )
   }
 
   atualizar(): void {
-    // Verifica se o formulário é válido
     if (this.formPaciente.form.valid) {
-      // Efetivamente atualiza a pessoa
-      this.pacienteService.atualizar(this.paciente);
-      // Redireciona para /pessoas
-      this.router.navigate(['/pacientes']);
+      this.pacienteService.atualizarPaciente(this.paciente).subscribe(
+        {
+          next: (resultado) => {
+            if (resultado) {
+              this.resultado = resultado
+            }
+          },
+          error: (erro: Error) => this.mostrarMensagem(erro.message),
+          complete: () => (this.mostrarMensagem(this.resultado.Status), this.router.navigate(['/pacientes/listar']))
+        });
     }
+  }
+
+  mostrarMensagem(mensagem: string) {
+    alert(mensagem);
   }
 
 }
