@@ -25,23 +25,26 @@
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Valor de Venda" id="valorVenda"
-                            name="valorVenda" [(ngModel)]="exame.valorVenda" #valorVenda="ngModel">
+                        <input type="text" class="form-control" placeholder="Valor de Venda"
+                            id="valorVenda" name="valorVenda" [(ngModel)]="exame.valorVenda" #valorVenda="ngModel">
                     </div>
                     <br>
 
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Status" id="status" name="status"
-                            [(ngModel)]="exame.status" #status="ngModel">
+                        <div class="switch">
+                            <label for="status">Status</label>
+                            <input class="cmn-toggle cmn-toggle-round" type="checkbox" id="status" name="status"
+                                [(ngModel)]="exame.status">
+                            <label for="status"></label>
+                        </div>
                     </div>
                 </div>
                 <br>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary">
-                        <i class="fa fa-save" aria-hidden="true"></i> Salvar
+                    <button type="button" class="btn btn-primary" style="margin: 5px" >
+                        <i class="fa fa-save" aria-hidden="true" (click)="decisaoEvento($event)"></i> Salvar
                     </button>
                 </div>
-
             </div>
         </ng-template>
 
@@ -65,10 +68,10 @@
                     <th>{{exame.valorVenda}}</th>
                     <th>{{exame.status}}</th>
                     <td class="text-center" style="width: 300px">
-                        <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info">
-                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        <a title="Editar" alt="Editar" class="btn btn-xs btn-info">
+                            <i class="fa fa-edit" aria-hidden="true" (click)="preencherCamposExame(template,exame)"></i> Editar
                         </a>
-                        <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"
+                        <a title="Remover" alt="Remover" class="btn btn-xs btn-danger" style="margin: 5px"
                             (click)="remover($event, exame)">
                             <i class="fa fa-times" aria-hidden="true"></i> Remover
                         </a>

@@ -19,7 +19,7 @@ export class ListarExameComponent implements OnInit {
   resposta!: any;
   public activeModal: NgbActiveModal | undefined;
 
-  constructor(private exameService: ExameService,private router: Router, private modalService: NgbModal) { }
+  constructor(private exameService: ExameService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.exame = new Exame();
@@ -39,18 +39,28 @@ export class ListarExameComponent implements OnInit {
     });
   }
 
-  inserir($event: any){
+  decisaoEvento($event: any) {
+    if (this.formExame.form.valid) {
+      if (this.exame.recID_Exame?.toString() == "" || this.exame.recID_Exame?.toString() == null) {
+        this.inserir($event);
+      } else {
+        this.atualizar($event);
+      }
+    }
+  }
+
+  inserir($event: any) {
     if (this.formExame.form.valid) {
       this.exameService.inserirExames(this.exame).subscribe(
         {
-        next: (resposta) => {
-            if(resposta){
+          next: (resposta) => {
+            if (resposta) {
               this.resposta = resposta
             }
-         },
-        error: (erro: Error) => this.mostrarMensagem(erro.message),
-        complete: () => (this.mostrarMensagem(this.resposta.Status),this.router.navigate(["/tutores/editar/",this.resposta.idExame]))
-      });
+          },
+          error: (erro: Error) => this.mostrarMensagem(erro.message),
+          complete: () => (this.mostrarMensagem(this.resposta.Status), this.fecharModal(), this.listarTodos(), this.exame = new Exame())
+        });
     }
   }
 
@@ -59,23 +69,43 @@ export class ListarExameComponent implements OnInit {
 
     if (this.confirmaRemoverPaciente(exames)) {
       this.exameService.removerExames(exames.recID_Exame!).subscribe({
-      next: (resposta) => {
-        if(resposta){
-          this.resposta = resposta
-        }
-      },
-      error: (erro: Error) => this.mostrarMensagem(erro.message),
-      complete: () => (this.mostrarMensagem(this.resposta['Status']),document.location.reload())
+        next: (resposta) => {
+          if (resposta) {
+            this.resposta = resposta
+          }
+        },
+        error: (erro: Error) => this.mostrarMensagem(erro.message),
+        complete: () => (this.mostrarMensagem(this.resposta['Status']), document.location.reload())
       });
     }
   }
 
-  confirmaRemoverPaciente(exames: Exame){
+  atualizar($event: any) {
+    if (this.formExame.form.valid) {
+      this.exameService.atualizarExames(this.exame).subscribe(
+        {
+          next: (resposta) => {
+            if (resposta) {
+              this.resposta = resposta
+            }
+          },
+          error: (erro: Error) => this.mostrarMensagem(erro.message),
+          complete: () => (this.mostrarMensagem(this.resposta.Status), this.fecharModal(), this.listarTodos(), this.exame = new Exame())
+        });
+    }
+  }
+
+  preencherCamposExame(template: TemplateRef<any>, exames: Exame) {
+    this.exame = exames;
+    this.abrirModal(template);
+  }
+
+  confirmaRemoverPaciente(exames: Exame) {
     let confirmaRemocaoCliente = confirm("Deseja remover o cliente " + exames.nome + "?");
     return confirmaRemocaoCliente;
   }
 
-  mostrarMensagem(mensagem : string){
+  mostrarMensagem(mensagem: string) {
     alert(mensagem);
   }
 
@@ -83,8 +113,8 @@ export class ListarExameComponent implements OnInit {
     const modalRef = this.modalService.open(template);
   }
 
-  fecharModal(){
-    const modalRef = this.modalService.dismissAll();    
+  fecharModal() {
+    const modalRef = this.modalService.dismissAll();
   }
 
 }

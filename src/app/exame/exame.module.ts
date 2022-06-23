@@ -5,7 +5,6 @@ import { ListarExameComponent } from './listar-exame/listar-exame.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     ListarExameComponent
