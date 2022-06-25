@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FornecedorModule } from './fornecedor/fornecedor.module';
+import { ProdutoModule } from './produto/produto.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { FornecedorModule } from './fornecedor/fornecedor.module';
     PacienteModule,
     ExameModule,
     ServicoModule,
+    ProdutoModule,
     FornecedorModule,
     BrowserAnimationsModule,
     BrowserModule,

@@ -1,0 +1,114 @@
+<div class="well">
+    <form #formProduto="ngForm">
+        <ng-template #template>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Produto</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="fecharModal()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" title="Nome" placeholder="Nome" id="nome" name="nome"
+                            [(ngModel)]="produto.nome" #nome="ngModel">
+                    </div>
+                    <br>
+                    <div class="col">
+                        <input type="text" class="form-control" title="Marca" placeholder="marca" id="marca"
+                            name="marca" [(ngModel)]="produto.marca" #marca="ngModel">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" title="Validade" placeholder="Validade" id="validade" name="validade"
+                            [(ngModel)]="produto.validade" #validade="ngModel">
+                    </div>
+                    <br>
+                    <div class="col">
+                        <input type="number" class="form-control" title="Quantidade Minima" placeholder="Quantidade Minima" id="quantidadeMinima"
+                            name="quantidadeMinima" [(ngModel)]="produto.quantidadeMinima" #quantidadeMinima="ngModel">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <input type="number" class="form-control" title="Quantidade Atual" placeholder="Quantidade Atual" id="quantidadeAtual" name="quantidadeAtual"
+                            [(ngModel)]="produto.quantidadeAtual" #quantidadeAtual="ngModel">
+                    </div>
+                    <br>
+                    <div class="col">
+                        <input type="number" class="form-control" title="Valor do Custo" placeholder="Valor do Custo" id="valorCusto"
+                            name="valorCusto" [(ngModel)]="produto.valorCusto" #valorCusto="ngModel">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" title="Valor de Venda" placeholder="Valor de Venda" id="valorVenda" name="valorVenda"
+                            [(ngModel)]="produto.valorVenda" #valorVenda="ngModel">
+                    </div>
+                    <br>
+
+                    <div class="col">
+                        <input type="number" class="form-control" title="% de Comissão" placeholder="% de Comissão" id="comissao"
+                            name="comissao" [(ngModel)]="produto.comissao" #comissao="ngModel">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="switch">
+                            <label for="status">Status</label>
+                            <input class="cmn-toggle cmn-toggle-round" type="checkbox" id="status" name="status"
+                                [(ngModel)]="produto.status">
+                            <label for="status"></label>
+                        </div>
+                    </div>
+                </div>
+               <br>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" style="margin: 5px">
+                        <i class="fa fa-save" aria-hidden="true" (click)="decisaoEvento($event)"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+
+        <h1>Produto</h1>
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th>Nome</th>
+                    <th>Marca</th>
+                    <th>Validade</th>
+                    <th>Quantidade Atual</th>
+                    <th class="text-center">
+                        <a title="Novo" alt="Novo" class="btn btn-xs btn-success" (click)="abrirModal(template)">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                        </a>
+                    </th>
+                </tr>
+                <tr *ngFor="let produto of produtos">
+                    <th>{{produto.nome}}</th>
+                    <th>{{produto.marca}}</th>
+                    <th>{{produto.validade}}</th>
+                    <th>{{produto.quantidadeAtual}}</th>
+                    <td class="text-center" style="width: 300px">
+                        <a title="Editar" alt="Editar" class="btn btn-xs btn-info">
+                            <i class="fa fa-edit" aria-hidden="true"
+                                (click)="preencherCamposProduto(template,produto)"></i> Editar
+                        </a>
+                        <a title="Remover" alt="Remover" class="btn btn-xs btn-danger" style="margin: 5px"
+                            (click)="remover($event, produto)">
+                            <i class="fa fa-times" aria-hidden="true"></i> Remover
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="produtos.length==0">Nenhum Produto cadastrado.</p>
+    </form>
+</div>
