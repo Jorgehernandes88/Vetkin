@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FornecedorModule } from './fornecedor/fornecedor.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PacienteModule,
     ExameModule,
     ServicoModule,
+    FornecedorModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,

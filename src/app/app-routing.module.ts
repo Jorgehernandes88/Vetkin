@@ -13,6 +13,8 @@ import { ListarExameComponent } from './exame/listar-exame/listar-exame.componen
 
 import { ListarServicoComponent } from './servico/listar-servico/listar-servico.component';
 
+import { ListarFornecedorComponent } from './fornecedor/listar-fornecedor/listar-fornecedor.component';
+
 const routes: Routes = [
     //Tutores
     {
@@ -65,6 +67,15 @@ const routes: Routes = [
     {
         path: 'servicos/listar',
         component: ListarServicoComponent
+    },
+    //Fornecedor
+    {
+        path: 'fornecedores',
+        redirectTo: 'fornecedores/listar'
+    },
+    {
+        path: 'fornecedores/listar',
+        component: ListarFornecedorComponent
     },
 ];
 
