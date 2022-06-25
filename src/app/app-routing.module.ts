@@ -11,6 +11,8 @@ import { EditarTutorComponent } from './tutor/editar-tutor/editar-tutor.componen
 
 import { ListarExameComponent } from './exame/listar-exame/listar-exame.component';
 
+import { ListarServicoComponent } from './servico/listar-servico/listar-servico.component';
+
 const routes: Routes = [
     //Tutores
     {
@@ -54,6 +56,15 @@ const routes: Routes = [
     {
         path: 'exames/listar',
         component: ListarExameComponent
+    },
+    //Servico
+    {
+        path: 'servicos',
+        redirectTo: 'servicos/listar'
+    },
+    {
+        path: 'servicos/listar',
+        component: ListarServicoComponent
     },
 ];
 
