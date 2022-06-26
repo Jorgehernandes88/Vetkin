@@ -1,3 +1,5 @@
+import { Fornecedor } from "./fornecedor.model";
+
 export class Produto {
     constructor(
         public recID_Produto?: number,
@@ -12,5 +14,6 @@ export class Produto {
         public comissao?: Number,
         public comissaoSobreLucro?: Number,
         public status?: string,
+        public fornecedor?: Fornecedor,
     ) { }
 }

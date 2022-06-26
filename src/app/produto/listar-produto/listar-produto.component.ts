@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FornecedorService } from 'src/app/fornecedor/services/fornecedor.service';
+import { Fornecedor } from 'src/app/shared/models/fornecedor.model';
 import { Produto } from 'src/app/shared/models/produto.model';
 import { ProdutoService } from '../services/produto.service';
 
@@ -16,14 +18,17 @@ export class ListarProdutoComponent implements OnInit {
 
   produto!: Produto;
   produtos: Produto[] = [];
+  fornecedor!: Fornecedor;
+  fornecedores: Fornecedor[] = [];
   resposta!: any;
   public activeModal: NgbActiveModal | undefined;
 
-  constructor(private produtoService: ProdutoService, private router: Router, private modalService: NgbModal) { }
+  constructor(private produtoService: ProdutoService,private fornecedorService: FornecedorService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.produto = new Produto();
     this.listarTodos();
+    this.listarTodosFornecedores();
   }
 
   listarTodos() {
@@ -39,8 +44,22 @@ export class ListarProdutoComponent implements OnInit {
     });
   }
 
+  listarTodosFornecedores() {
+    return this.fornecedorService.listarFornecedores().subscribe({
+      next: (fornecedores: Fornecedor[]) => {
+        if (fornecedores == null) {
+          this.fornecedores = [];
+        }
+        else {
+          this.fornecedores = fornecedores;
+        }
+      }
+    });
+  }
+
   decisaoEvento($event: any) {
     if (this.formProduto.form.valid) {
+      this.produto.fornecedor = this.fornecedor;
       this.calcularMargem(this.produto);
       if (this.produto.recID_Produto?.toString() == "" || this.produto.recID_Produto?.toString() == null) {
         this.inserir($event);
@@ -83,7 +102,7 @@ export class ListarProdutoComponent implements OnInit {
 
   atualizar($event: any) {
     if (this.formProduto.form.valid) {
-      this.produtoService.atualizarExames(this.produto).subscribe(
+      this.produtoService.atualizarProduto(this.produto).subscribe(
         {
           next: (resposta: any) => {
             if (resposta) {
@@ -119,12 +138,13 @@ export class ListarProdutoComponent implements OnInit {
   }
 
   calcularMargem(produto: Produto){
-    
     //margemLucro
-     let lucroLiquido = Number(produto.valorCusto) - Number(produto.valorVenda);
-     produto.margemLucro = (Number(lucroLiquido) / Number(produto.valorCusto)) * 100;
+     let lucroLiquido = Number(produto.valorVenda) - Number(produto.valorCusto);
+     lucroLiquido = (Number(lucroLiquido) / Number(produto.valorCusto)) * 100;
+     produto.margemLucro = Number(lucroLiquido.toFixed(2));
     
      //comissaoSobreLucro
-     produto.comissaoSobreLucro = (lucroLiquido * Number(produto.comissao)) / 100
+     let comissaoLucro =  (lucroLiquido * Number(produto.comissao)) / 100;
+     produto.comissaoSobreLucro = Number(comissaoLucro.toFixed(2));
   }
 }

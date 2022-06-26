@@ -23,42 +23,52 @@
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="text" class="form-control" title="Validade" placeholder="Validade" id="validade" name="validade"
-                            [(ngModel)]="produto.validade" #validade="ngModel">
+                        <input type="text" class="form-control" title="Validade" placeholder="Validade" id="validade"
+                            name="validade" [(ngModel)]="produto.validade" #validade="ngModel">
                     </div>
                     <br>
                     <div class="col">
-                        <input type="number" class="form-control" title="Quantidade Minima" placeholder="Quantidade Minima" id="quantidadeMinima"
-                            name="quantidadeMinima" [(ngModel)]="produto.quantidadeMinima" #quantidadeMinima="ngModel">
+                        <input type="number" class="form-control" title="Quantidade Minima"
+                            placeholder="Quantidade Minima" id="quantidadeMinima" name="quantidadeMinima"
+                            [(ngModel)]="produto.quantidadeMinima" #quantidadeMinima="ngModel">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="number" class="form-control" title="Quantidade Atual" placeholder="Quantidade Atual" id="quantidadeAtual" name="quantidadeAtual"
+                        <input type="number" class="form-control" title="Quantidade Atual"
+                            placeholder="Quantidade Atual" id="quantidadeAtual" name="quantidadeAtual"
                             [(ngModel)]="produto.quantidadeAtual" #quantidadeAtual="ngModel">
                     </div>
                     <br>
                     <div class="col">
-                        <input type="number" class="form-control" title="Valor do Custo" placeholder="Valor do Custo" id="valorCusto"
-                            name="valorCusto" [(ngModel)]="produto.valorCusto" #valorCusto="ngModel">
+                        <input type="number" class="form-control" title="Valor do Custo" placeholder="Valor do Custo"
+                            id="valorCusto" name="valorCusto" [(ngModel)]="produto.valorCusto" #valorCusto="ngModel">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="text" class="form-control" title="Valor de Venda" placeholder="Valor de Venda" id="valorVenda" name="valorVenda"
-                            [(ngModel)]="produto.valorVenda" #valorVenda="ngModel">
+                        <input type="text" class="form-control" title="Valor de Venda" placeholder="Valor de Venda"
+                            id="valorVenda" name="valorVenda" [(ngModel)]="produto.valorVenda" #valorVenda="ngModel">
                     </div>
                     <br>
 
                     <div class="col">
-                        <input type="number" class="form-control" title="% de Comissão" placeholder="% de Comissão" id="comissao"
-                            name="comissao" [(ngModel)]="produto.comissao" #comissao="ngModel">
+                        <input type="number" class="form-control" title="% de Comissão" placeholder="% de Comissão"
+                            id="comissao" name="comissao" [(ngModel)]="produto.comissao" #comissao="ngModel">
                     </div>
                 </div>
                 <br>
                 <div class="row">
+                    <div class="col">
+                        
+                     <!--   <ng-select name="fornecedor" [items]="fornecedores" bindLabel="sigla" [(ngModel)]="produto.fornecedor"
+                            placeholder="Selecione um estado">
+                        </ng-select>-->
+
+                    </div>
+                    <br>
                     <div class="col">
                         <div class="switch">
                             <label for="status">Status</label>
@@ -68,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-               <br>
+                <br>
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" style="margin: 5px">
                         <i class="fa fa-save" aria-hidden="true" (click)="decisaoEvento($event)"></i> Salvar

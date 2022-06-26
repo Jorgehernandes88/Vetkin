@@ -12,7 +12,7 @@ import { ListarProdutoComponent } from './listar-produto/listar-produto.componen
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
+    FormsModule
   ],
   providers:[
     ProdutoService
